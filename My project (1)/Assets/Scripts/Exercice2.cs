@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GrandirDiminuer : MonoBehaviour
+public class Exercice2 : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public bool grandir = true;
@@ -15,7 +15,7 @@ public class GrandirDiminuer : MonoBehaviour
     void Update()
     {
         
-        var vitesseTransformation = new Vector3(0.01f, 00.01f, 00.01f);
+        var vitesseTransformation = new Vector3(100.01f, 100.01f, 100.01f);
         
             if (grandir) {
                 transform.localScale += vitesseTransformation * Time.deltaTime;
