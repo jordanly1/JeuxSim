@@ -4,6 +4,7 @@ public class Exercice2 : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public bool grandir = true;
+    [SerializeField]float vitesseTransformation = 100.01f;
     void Start()
     {
         
@@ -15,11 +16,10 @@ public class Exercice2 : MonoBehaviour
     void Update()
     {
         
-        var vitesseTransformation = new Vector3(100.01f, 100.01f, 100.01f);
         
             if (grandir) {
 
-                transform.localScale += vitesseTransformation * Time.deltaTime;
+                transform.localScale += new Vector3(vitesseTransformation, vitesseTransformation , vitesseTransformation) * Time.deltaTime;
                 
                 if (transform.localScale.magnitude >= 100)
                 {
@@ -28,14 +28,15 @@ public class Exercice2 : MonoBehaviour
             }
             else{
 
-                transform.localScale -= vitesseTransformation * Time.deltaTime;
-                if (transform.localScale.magnitude <= 20)
+                 transform.localScale -= new Vector3(vitesseTransformation, vitesseTransformation, vitesseTransformation) * Time.deltaTime;
+            if (transform.localScale.magnitude <= 20)
                 {
                     grandir = true;
                 }
             }
 
-    
+          Debug.Log("Magnitude" + transform.localScale.magnitude);
+
 
     }
 }
