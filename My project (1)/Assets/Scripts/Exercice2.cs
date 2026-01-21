@@ -18,8 +18,9 @@ public class Exercice2 : MonoBehaviour
         var vitesseTransformation = new Vector3(100.01f, 100.01f, 100.01f);
         
             if (grandir) {
-                transform.localScale += vitesseTransformation * Time.deltaTime;
 
+                transform.localScale += vitesseTransformation * Time.deltaTime;
+                
                 if (transform.localScale.magnitude >= 100)
                 {
                    grandir = false;
