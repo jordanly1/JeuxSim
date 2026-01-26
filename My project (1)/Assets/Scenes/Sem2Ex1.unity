@@ -187,8 +187,8 @@ Canvas:
   m_GameObject: {fileID: 175596501}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1348457131}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -393,7 +393,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8396198615666330447, guid: 73d2579a8be631b448b18bf66835c1f5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1715564197}
   m_SourcePrefab: {fileID: 100100000, guid: 73d2579a8be631b448b18bf66835c1f5, type: 3}
 --- !u!1 &1170933153
 GameObject:
@@ -431,6 +434,7 @@ MonoBehaviour:
   sphereRigidBody: {fileID: 0}
   trampoline: {fileID: 0}
   niveauForce: 10
+  positionDepart: {x: 0, y: 0, z: 0}
 --- !u!135 &1170933155
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -561,6 +565,7 @@ GameObject:
   - component: {fileID: 1262345973}
   - component: {fileID: 1262345975}
   - component: {fileID: 1262345974}
+  - component: {fileID: 1262345976}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -576,15 +581,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1262345972}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 175596505}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1805.1, y: -1030}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 357, y: -44}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1262345974
@@ -688,6 +693,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1262345972}
   m_CullTransparentMesh: 1
+--- !u!114 &1262345976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262345972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 424a45a758ef91540843b050d659cc5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SystemPoints
+  champPoints: {fileID: 1262345974}
+  balle: {fileID: 1170933153}
+  zone: {fileID: 1715564197}
 --- !u!1 &1279379557
 GameObject:
   m_ObjectHideFlags: 0
@@ -1495,6 +1515,24 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de84bdfd1435cef4090faa1bbd6c79c9, type: 3}
+--- !u!1 &1715564192 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8396198615666330447, guid: 73d2579a8be631b448b18bf66835c1f5, type: 3}
+  m_PrefabInstance: {fileID: 1013378373}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1715564197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715564192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 281381ed98cef7044a2cc045466fe55e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ZoneArrivee
+  ball: {fileID: 1170933153}
 --- !u!1001 &1922757240
 PrefabInstance:
   m_ObjectHideFlags: 0

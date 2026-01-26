@@ -18,11 +18,7 @@ public class ButFinal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (attenteDemarrer)
-        {
-            tempsAttente += Time.deltaTime;
-        }
+  
 
         if(tempsAttente > 2)
         {

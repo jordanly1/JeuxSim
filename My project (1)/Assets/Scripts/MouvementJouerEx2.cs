@@ -14,10 +14,11 @@ public class MouvementJoueurEx2 : MonoBehaviour
     private float niveauForce;
 
 
-    private Vector3 positionDepart;
+    public Vector3 positionDepart;
 
     void Start()
     {
+        positionDepart = transform.position;
         _move = InputSystem.actions.FindAction("Move");
         sphereRigidBody = GetComponent<Rigidbody>();
         
@@ -30,6 +31,11 @@ public class MouvementJoueurEx2 : MonoBehaviour
         Vector3 force = new Vector3(mouvement.x, 0, mouvement.y);
         force *= niveauForce;
         sphereRigidBody.AddForce(force);
+
+        if (transform.position.y < -15) {
+
+            ReplacerJoueur();
+        }
     }
 
     public void ReplacerJoueur()
