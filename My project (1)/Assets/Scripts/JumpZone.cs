@@ -5,8 +5,6 @@ public class JumpZone : MonoBehaviour
 
     [SerializeField]
     private GameObject ball;
-
-    private MouvementJoueurEx2 scriptJump;
     [SerializeField]
     private float jumpForce = 10;
 
@@ -26,8 +24,10 @@ public class JumpZone : MonoBehaviour
     {
         if (other.gameObject == ball)
         {
+
             Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
         }
     }
 

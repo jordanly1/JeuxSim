@@ -24,6 +24,14 @@ public class MouvementJoueurEx2 : MonoBehaviour
         
     }
 
+
+    private void Update()
+    {
+        if (transform.position.y < -15f)
+        {
+            ReplacerJoueur();
+        }
+    }
     // Update is called once per frame
     private void FixedUpdate()
     {
@@ -31,12 +39,9 @@ public class MouvementJoueurEx2 : MonoBehaviour
         Vector3 force = new Vector3(mouvement.x, 0, mouvement.y);
         force *= niveauForce;
         sphereRigidBody.AddForce(force);
-
-        if (transform.position.y < -15) {
-
-            ReplacerJoueur();
-        }
+     
     }
+    
 
     public void ReplacerJoueur()
     {

@@ -10,14 +10,12 @@ public class SystemPoints : MonoBehaviour
     private GameObject balle;
     [SerializeField]
     private ZoneArrivee zone;
+    private int points = -1;
 
-
-    private int points;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        points  = 0;
-        champPoints.text = points.ToString();
+        AugmenterPoints();
 
     }
 
@@ -30,7 +28,7 @@ public class SystemPoints : MonoBehaviour
     public void AugmenterPoints()
     {
         points++;
-        champPoints.text = points.ToString();
+        champPoints.text = "Points: " + points.ToString();
     }
 }
 

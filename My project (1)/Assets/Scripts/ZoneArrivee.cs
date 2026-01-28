@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ZoneArrivee : MonoBehaviour
@@ -5,11 +6,9 @@ public class ZoneArrivee : MonoBehaviour
 
     [SerializeField]
     private GameObject ball;
-    private float tempsAttente = 0;
-    private bool reussi = false;
 
-    private MouvementJoueurEx2 scriptDeplacement;
-    private SystemPoints systemPoints = new SystemPoints();
+    public event Action ZoneAtteinteHandler;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,22 +20,6 @@ public class ZoneArrivee : MonoBehaviour
     void Update()
     {
 
-        if (reussi)
-        {
-            GameObject.Instantiate(ball);
-            reussi = false;
-
-
-            if (scriptDeplacement == null)
-            {
-                scriptDeplacement = ball.GetComponent<MouvementJoueurEx2>();
-            }
-
-            scriptDeplacement.ReplacerJoueur();
-
-            systemPoints.AugmenterPoints();
-        }
-
 
     }
 
@@ -45,7 +28,8 @@ public class ZoneArrivee : MonoBehaviour
 
         if (collision.gameObject == ball)
         {
-            reussi = true;
+            // Avertir les objets interesses que la zone a ete atteinte
+            ZoneAtteinteHandler?.Invoke();
         }
     }
 
