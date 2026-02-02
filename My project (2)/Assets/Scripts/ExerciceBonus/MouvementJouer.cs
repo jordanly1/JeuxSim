@@ -1,14 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MouvementJoueurEx2 : MonoBehaviour
+public class MouvementJouer : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private InputAction _move;
     public Rigidbody sphereRigidBody;
 
-    [SerializeField]
-    private GameObject trampoline;
+
 
     [SerializeField]
     private float niveauForce;
@@ -21,7 +20,7 @@ public class MouvementJoueurEx2 : MonoBehaviour
         positionDepart = transform.position;
         _move = InputSystem.actions.FindAction("Move");
         sphereRigidBody = GetComponent<Rigidbody>();
-        
+
     }
 
 
@@ -39,9 +38,9 @@ public class MouvementJoueurEx2 : MonoBehaviour
         Vector3 force = new Vector3(mouvement.x, 0, mouvement.y);
         force *= niveauForce;
         sphereRigidBody.AddForce(force);
-     
+
     }
-    
+
 
     public void ReplacerJoueur()
     {
@@ -49,9 +48,4 @@ public class MouvementJoueurEx2 : MonoBehaviour
         sphereRigidBody.linearVelocity = Vector3.zero;
         sphereRigidBody.angularVelocity = Vector3.zero;
     }
-
-
-
-
-
 }
