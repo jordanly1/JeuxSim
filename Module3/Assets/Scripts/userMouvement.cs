@@ -13,8 +13,15 @@ public class userMouvement : MonoBehaviour
     private GameObject player;
     [SerializeField]
     private GameObject ground;
+    [SerializeField]
+    private float rotationSpeed = 80f;
+    [SerializeField]
+    private float speed = 5f;
+    private Vector3 objectif;
+    private Coroutine coroutine;
+    private Coroutine headCoroutine;
 
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,19 +35,27 @@ public class userMouvement : MonoBehaviour
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
 
-            var vitesse = 5f;
-            float step = vitesse * Time.deltaTime;
             var position = Mouse.current.position.ReadValue();
             Ray ray = Camera.main.ScreenPointToRay(position);
             RaycastHit hit;
+
+
 
             if (Physics.Raycast(ray, out hit))
             {
                 if (hit.collider.gameObject == ground)
                 {
-                    var direction = new Vector3(hit.point.x - player.transform.position.x, player.transform.position.y, hit.point.z - player.transform.position.z);
+                    if (coroutine != null) StopCoroutine(coroutine);
+                    if(headCoroutine != null) StopCoroutine(headCoroutine);
 
-                    StartCoroutine(movePlayer(direction));
+
+                    objectif = hit.point;
+                    objectif.y = player.transform.position.y;   
+
+                    Vector3 direction = (objectif - player.transform.position).normalized;
+
+                    headCoroutine = StartCoroutine(rotateHead(direction));
+                    coroutine = StartCoroutine(movePlayer(direction));
                 }
 
             }
@@ -51,21 +66,26 @@ public class userMouvement : MonoBehaviour
 
     IEnumerator movePlayer(Vector3 direction)
     {
-        float speed = 5f;    
 
-        while(player.transform.position == direction)
+        while (Vector3.Distance(player.transform.position, objectif) > 1f)
         {
-            player.transform.position += direction * speed * Time.deltaTime;
-            direction -= player.transform.position;
+            player.transform.position += speed * direction * Time.deltaTime; 
+            yield return null;
 
         }
-        
-        
+    }
 
+    IEnumerator rotateHead(Vector3 direction)
+    {
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
 
+        while (Quaternion.Angle(player.transform.rotation, targetRotation) > 0.1f)
+        {
+            player.transform.rotation =
+        Quaternion.RotateTowards(player.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
+            yield return null;
+        }
 
-
-        yield return null;
     }
 }
