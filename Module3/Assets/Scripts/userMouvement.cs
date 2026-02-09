@@ -24,29 +24,43 @@ public class userMouvement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
-            movePlayer();
+
+            var vitesse = 5f;
+            float step = vitesse * Time.deltaTime;
+            var position = Mouse.current.position.ReadValue();
+            Ray ray = Camera.main.ScreenPointToRay(position);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.gameObject == ground)
+                {
+                    var direction = new Vector3(hit.point.x - player.transform.position.x, player.transform.position.y, hit.point.z - player.transform.position.z);
+
+                    StartCoroutine(movePlayer(direction));
+                }
+
+            }
+
         }
-        
+
     }
 
-    IEnumerator movePlayer()
+    IEnumerator movePlayer(Vector3 direction)
     {
-        var vitesse = 5f;
-        float step = vitesse * Time.deltaTime;
-        var position = Mouse.current.position.ReadValue();
-        Ray ray = Camera.main.ScreenPointToRay(position);
-        RaycastHit hit;
+        float speed = 5f;    
 
-        if (Physics.Raycast(ray, out hit))
+        while(player.transform.position == direction)
         {
-            if (hit.collider.gameObject == ground)
-            {
-                player.transform.position = Vector3.MoveTowards(player.transform.position, hit.point, 0.005f);
-            }
-                
+            player.transform.position += direction * speed * Time.deltaTime;
+            direction -= player.transform.position;
+
         }
+        
+        
 
 
 
