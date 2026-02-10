@@ -9,23 +9,24 @@ using static UnityEditor.PlayerSettings;
 
 public class userMouvement : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject player;
+
     [SerializeField]
     private GameObject ground;
     [SerializeField]
     private float rotationSpeed = 80f;
     [SerializeField]
     private float speed = 5f;
+    private Rigidbody _playerRigidBody;
     private Vector3 objectif;
     private Coroutine coroutine;
     private Coroutine headCoroutine;
+    private Vector3 placeDepart;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        _playerRigidBody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -50,9 +51,9 @@ public class userMouvement : MonoBehaviour
 
 
                     objectif = hit.point;
-                    objectif.y = player.transform.position.y;   
+                    objectif.y = _playerRigidBody.position.y;   
 
-                    Vector3 direction = (objectif - player.transform.position).normalized;
+                    Vector3 direction = (objectif - _playerRigidBody.position).normalized;
 
                     headCoroutine = StartCoroutine(rotateHead(direction));
                     coroutine = StartCoroutine(movePlayer(direction));
@@ -61,15 +62,14 @@ public class userMouvement : MonoBehaviour
             }
 
         }
-
     }
 
     IEnumerator movePlayer(Vector3 direction)
     {
 
-        while (Vector3.Distance(player.transform.position, objectif) > 1f)
+        while (Vector3.Distance(_playerRigidBody.position, objectif) > 1f)
         {
-            player.transform.position += speed * direction * Time.deltaTime; 
+            _playerRigidBody.position += speed * direction * Time.deltaTime; 
             yield return null;
 
         }
@@ -79,10 +79,10 @@ public class userMouvement : MonoBehaviour
     {
         Quaternion targetRotation = Quaternion.LookRotation(direction);
 
-        while (Quaternion.Angle(player.transform.rotation, targetRotation) > 0.1f)
+        while (Quaternion.Angle(_playerRigidBody.rotation, targetRotation) > 0.1f)
         {
-            player.transform.rotation =
-        Quaternion.RotateTowards(player.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            _playerRigidBody.rotation =
+        Quaternion.RotateTowards(_playerRigidBody.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
             yield return null;
         }

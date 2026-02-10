@@ -4,6 +4,7 @@ using UnityEngine;
 public class bougerBras : MonoBehaviour
 {
     float vitesseDeplacement = 1f;
+    private Vector3 directionDeplacement = new Vector3(1f, 0f, 0f);
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,7 +15,7 @@ public class bougerBras : MonoBehaviour
     void Update()
     {
 
-        transform.Rotate();
+        transform.Rotate(directionDeplacement);
 
         if (transform.localPosition.x < -0.2f)
         {
