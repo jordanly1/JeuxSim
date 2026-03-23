@@ -1,39 +1,32 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Patrouille : MonoBehaviour
+public class Patrouille : EtatEnnemi
 {
-    [SerializeField]
-    private Transform[] pointsPatrouille;
-    private NavMeshAgent navMeshAgent;
-    private Animator animator;
-    private int pointMaintenant;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Patrouille(ComportementEnnemi _sujet) : base(_sujet)
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
-        while (!navMeshAgent.pathPending && navMeshAgent.remainingDistance < 0.5f)
+    public  override void Entrer() {
+
+        sujet.animator.SetBool("Walk", true);
+        sujet.navMeshAgent.isStopped = false;
+        sujet.AllerProchainPoint();
+
+    }
+    public  override void Sortir() { 
+
+       sujet.animator.SetBool("Walk", false);
+
+
+    }
+    public override void Executer(float deltaTime)
+    {
+        if(sujet.navMeshAgent.remainingDistance < 0.5f)
         {
-            AllerProchainPoint();
+            sujet.AllerProchainPoint();
         }
-
-        if (navMeshAgent.velocity.magnitude > 0.1f)
-            animator.SetBool("isWalking", true);
-        else
-            animator.SetBool("isWalking", false);
     }
 
-    void AllerProchainPoint()
-    {
-        pointMaintenant = Random.Range(0, pointsPatrouille.Length);
-        navMeshAgent.SetDestination(pointsPatrouille[pointMaintenant].position);
-        
-    }
 }
