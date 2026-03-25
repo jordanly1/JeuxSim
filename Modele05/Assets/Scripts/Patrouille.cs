@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 public class Patrouille : EtatEnnemi
 {
+
     public Patrouille(ComportementEnnemi _sujet) : base(_sujet)
     {
     }
@@ -12,7 +13,7 @@ public class Patrouille : EtatEnnemi
 
         sujet.animator.SetBool("Walk", true);
         sujet.navMeshAgent.isStopped = false;
-        sujet.AllerProchainPoint();
+        AllerProchainPoint();
 
     }
     public  override void Sortir() { 
@@ -23,10 +24,23 @@ public class Patrouille : EtatEnnemi
     }
     public override void Executer(float deltaTime)
     {
-        if(sujet.navMeshAgent.remainingDistance < 0.5f)
-        {
-            sujet.AllerProchainPoint();
+        if (sujet.joueurVisible()) { 
+            sujet.ChangerEtat(sujet.etatPoursuite);
         }
+        else if (sujet.navMeshAgent.remainingDistance < 0.5f)
+        {
+            AllerProchainPoint();
+
+        }
+      
+    }
+
+
+    public void AllerProchainPoint()
+    {
+        sujet.pointMaintenant = Random.Range(0, sujet.pointsPatrouille.Length);
+        sujet.navMeshAgent.SetDestination(sujet.pointsPatrouille[sujet.pointMaintenant].position);
+
     }
 
 }

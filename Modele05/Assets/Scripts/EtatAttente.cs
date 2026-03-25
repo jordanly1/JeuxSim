@@ -26,6 +26,7 @@ public class EtatAttente : EtatEnnemi
         if(sec < 0)
         {
             sujet.ChangerEtat(sujet.etatPatrouille);
+            sujet.navMeshAgent.isStopped = false;
         }
 
 

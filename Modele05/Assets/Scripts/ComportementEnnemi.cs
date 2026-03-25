@@ -4,13 +4,13 @@ using UnityEngine.AI;
 public class ComportementEnnemi : MonoBehaviour
 {
     [SerializeField]
-    private Transform[] pointsPatrouille;
+    public Transform[] pointsPatrouille;
     [SerializeField]
     public GameObject joueur;
 
 
-    public NavMeshAgent navMeshAgent;
-    public Animator animator;
+    [HideInInspector]public NavMeshAgent navMeshAgent;
+    [HideInInspector]public Animator animator;
 
 
 
@@ -20,8 +20,7 @@ public class ComportementEnnemi : MonoBehaviour
     public EtatAttaque etatAttaque;
 
     private EtatEnnemi etatCourant;
-
-    private int pointMaintenant;
+    public int pointMaintenant;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,25 +28,29 @@ public class ComportementEnnemi : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
 
+        etatPatrouille = new Patrouille(this);
+        etatPoursuite = new EtatPoursuite(this);
+        etatAttente = new EtatAttente(this);
+        etatPatrouille = new Patrouille(this);
+
+
+        etatCourant = etatPatrouille;
+        etatCourant.Entrer();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        etatCourant.Executer(Time.deltaTime);
     }
 
-    public void AllerProchainPoint()
-    {
-        pointMaintenant = Random.Range(0, pointsPatrouille.Length);
-        navMeshAgent.SetDestination(pointsPatrouille[pointMaintenant].position);
-
-    }
 
     public void ChangerEtat(EtatEnnemi nouvelEtat)
     {
         etatCourant.Sortir();
         etatCourant = nouvelEtat;
+        etatCourant.Entrer();
     }
 
     public bool joueurVisible()
@@ -63,6 +66,15 @@ public class ComportementEnnemi : MonoBehaviour
             return true;
        }
         return false;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject == joueur)
+        {
+            Debug.Log("Le joueur a été touché !");
+             ChangerEtat(etatPatrouille);
+        }
     }
 }
 

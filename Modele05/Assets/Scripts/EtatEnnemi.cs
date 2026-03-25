@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class EtatEnnemi : MonoBehaviour
+public abstract class EtatEnnemi 
 {
     public ComportementEnnemi sujet;
 
